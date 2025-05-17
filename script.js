@@ -19,24 +19,56 @@ function updateCountdown() {
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 
     // Update the sarcastic message
-    // const countdownText = document.getElementById('countdown-text');
-    // if (days > 0) {
-    //     countdownText.textContent = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
-    // } else if (hours > 0) {
-    //     countdownText.textContent = `${hours} horas, ${minutes} minutos e ${seconds} segundos`;
-    // } else if (minutes > 0) {
-    //     countdownText.textContent = `${minutes} minutos e ${seconds} segundos`;
-    // } else {
-    //     countdownText.textContent = `${seconds} segundos`;
-    // }
+    const countdownText = document.getElementById('countdown-text');
+    if (days > 0) {
+        countdownText.textContent = `${days} dias, ${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+    } else if (hours > 0) {
+        countdownText.textContent = `${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+    } else if (minutes > 0) {
+        countdownText.textContent = `${minutes} minutos e ${seconds} segundos`;
+    } else {
+        countdownText.textContent = `${seconds} segundos`;
+    }
 
-    // Add animation class to the countdown items
-    const countdownItems = document.querySelectorAll('.countdown-item');
+    // Pulse and anxiety-inducing effects
+    const countdownItems = document.querySelectorAll('.countdown-item span:first-child');
     countdownItems.forEach(item => {
-        item.classList.add('pulse');
-        setTimeout(() => item.classList.remove('pulse'), 1000);
+        item.classList.remove('pulse', 'pulse-fast');
+        if (difference < 60000) { // less than 1 minute
+            item.classList.add('pulse-fast');
+        } else if (difference < 5 * 60000) { // less than 5 minutes
+            item.classList.add('pulse');
+        }
     });
 }
+
+// Prank anxiety popup
+const anxietyMessages = [
+    'O tempo está ACABANDO! 😱',
+    'Você já está pronto? ⏰',
+    'Corre que ainda dá tempo! 🏃‍♂️',
+    'Falta pouco... ou será que não? 🤔',
+    'ALERTA: Ansiedade detectada! 🚨',
+    'Já bateu o nervosismo? 😬',
+    'Atenção: Contagem regressiva em andamento!'
+];
+function showAnxietyPopup() {
+    if (document.querySelector('.anxiety-popup')) return; // Only one at a time
+    const popup = document.createElement('div');
+    popup.className = 'anxiety-popup';
+    popup.innerHTML = `
+        <span>${anxietyMessages[Math.floor(Math.random() * anxietyMessages.length)]}</span>
+        <button onclick="this.parentElement.remove()">OK</button>
+    `;
+    document.body.appendChild(popup);
+    setTimeout(() => {
+        if (popup.parentElement) popup.remove();
+    }, 5000);
+}
+// Randomly show popup every 20-40 seconds
+setInterval(() => {
+    if (Math.random() < 0.3) showAnxietyPopup();
+}, 20000);
 
 // Update the countdown immediately and then every second
 updateCountdown();
@@ -47,7 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const content = document.querySelector('.content');
     content.style.opacity = '0';
     content.style.transform = 'translateY(20px)';
-
     setTimeout(() => {
         content.style.transition = 'opacity 1s ease, transform 1s ease';
         content.style.opacity = '1';
