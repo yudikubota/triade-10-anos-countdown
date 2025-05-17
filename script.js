@@ -17,14 +17,14 @@ function updateCountdown() {
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 
     // Update the sarcastic message (no days)
-    const countdownText = document.getElementById('countdown-text');
-    if (hours > 0) {
-        countdownText.textContent = `${hours} horas, ${minutes} minutos e ${seconds} segundos`;
-    } else if (minutes > 0) {
-        countdownText.textContent = `${minutes} minutos e ${seconds} segundos`;
-    } else {
-        countdownText.textContent = `${seconds} segundos`;
-    }
+    // const countdownText = document.getElementById('countdown-text');
+    // if (hours > 0) {
+    //     countdownText.textContent = `${hours} horas, ${minutes} minutos e ${seconds} segundos`;
+    // } else if (minutes > 0) {
+    //     countdownText.textContent = `${minutes} minutos e ${seconds} segundos`;
+    // } else {
+    //     countdownText.textContent = `${seconds} segundos`;
+    // }
 
     // Pulse and anxiety-inducing effects
     const countdownItems = document.querySelectorAll('.countdown-item span:first-child');
