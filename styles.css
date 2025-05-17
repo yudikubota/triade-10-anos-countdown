@@ -1,9 +1,10 @@
 :root {
-    --primary-color: #6c63ff;
-    --secondary-color: #4a45b1;
-    --background-color: #1a1a2e;
-    --text-color: #ffffff;
-    --accent-color: #ff6b6b;
+    --primary-color: #ff9800;
+    --secondary-color: #7c1fff;
+    --background-color: #1a093a;
+    --text-color: #fffbe7;
+    --accent-color: #ff2e63;
+    --detail-color: #00e6e6;
 }
 
 * {
@@ -20,7 +21,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, var(--background-color) 0%, #16213e 100%);
+    background: linear-gradient(135deg, #1a093a 0%, #2d0b4e 60%, #ff9800 100%);
 }
 
 .container {
@@ -31,22 +32,22 @@ body {
 }
 
 .content {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(28, 0, 50, 0.7);
     backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 3rem;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    border: 1px solid rgba(255, 255, 255, 0.18);
+    border: 1.5px solid var(--accent-color);
 }
 
 .event-name {
     font-size: 3rem;
     margin-bottom: 1rem;
-    background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+    background: linear-gradient(90deg, var(--primary-color), var(--accent-color), var(--detail-color));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
     animation: fadeIn 1s ease-in;
+    letter-spacing: 2px;
 }
 
 .artist-info {
@@ -56,12 +57,12 @@ body {
 .artist-info h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    color: var(--text-color);
+    color: var(--detail-color);
 }
 
 .date {
     font-size: 1.2rem;
-    color: var(--accent-color);
+    color: var(--primary-color);
 }
 
 .countdown-container {
@@ -73,15 +74,16 @@ body {
 }
 
 .countdown-item {
-    background: rgba(255, 255, 255, 0.1);
+    background: linear-gradient(135deg, rgba(124, 31, 255, 0.7), rgba(255, 46, 99, 0.5));
     padding: 1.5rem;
     border-radius: 15px;
     min-width: 120px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s;
+    border: 1.5px solid var(--detail-color);
 }
 
 .countdown-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px) scale(1.05);
 }
 
 .countdown-item span {
@@ -98,14 +100,14 @@ body {
     font-size: 0.9rem;
     margin-top: 0.5rem;
     color: var(--text-color);
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .sarcastic-message {
     font-size: 1.2rem;
     margin-top: 2rem;
-    color: var(--text-color);
-    opacity: 0.9;
+    color: var(--accent-color);
+    opacity: 0.95;
 }
 
 @keyframes fadeIn {
