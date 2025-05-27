@@ -1,8 +1,9 @@
-// Set the target date and time (May 17, 2025, 21:00 São Paulo time)
-const targetDate = new Date('2025-05-17T21:00:00-03:00');
+// Set the target date and time (June 20, 2024, 19:00 São Paulo time)
+const targetDate = new Date('2025-06-20T19:00:00-03:00');
 
-function formatElapsed(hours, minutes, seconds) {
+function formatElapsed(days, hours, minutes, seconds) {
     let parts = [];
+    if (days > 0) parts.push(`${days} dias`);
     if (hours > 0) parts.push(`${hours} horas`);
     if (minutes > 0) parts.push(`${minutes} minutos`);
     if (seconds > 0 || parts.length === 0) parts.push(`${seconds} segundos`);
@@ -19,12 +20,14 @@ function updateCountdown() {
         difference = Math.abs(difference);
     }
 
-    // Calculate time units (no days)
-    const hours = Math.floor(difference / (1000 * 60 * 60));
+    // Calculate time units
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
     // Update the DOM elements
+    document.getElementById('days').textContent = String(days).padStart(2, '0');
     document.getElementById('hours').textContent = String(hours).padStart(2, '0');
     document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
@@ -32,7 +35,7 @@ function updateCountdown() {
     // Update the sarcastic message or elapsed message
     const sarcasticEls = document.querySelectorAll('.sarcastic-message');
     if (isPast) {
-        const elapsed = formatElapsed(hours, minutes, seconds);
+        const elapsed = formatElapsed(days, hours, minutes, seconds);
         if (sarcasticEls.length > 0) {
             sarcasticEls[0].textContent = `Já faz`;
         }
